@@ -19,6 +19,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.LocalDateTime;
@@ -29,120 +32,78 @@ import java.util.Set;
 @Table(name = "usuario")
 public class Usuario {
 
+    @Setter
+    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Setter
+    @Getter
     @NotNull(message = "O nome não pode ser nulo.")
-    @Size(min = 3, max = 50, message = "O nome deve ter entre 3 e 50 caracteres.")
+    //@Size(min = 3, max = 50, message = "O nome deve ter entre 3 e 50 caracteres.")
     private String nome;
 
+    @Setter
+    @Getter
     @Pattern(regexp = "\\d{11}", message = "O CPF deve ter exatamente 11 dígitos.")
     private String cpf;
 
+    @Setter
+    @Getter
     @Email
     @Column(unique = true)
     private String email;
 
-    @Size(min = 8, max = 10, message = "A senha deve ter entre 8 e 10 caracteres.")
+    @Setter
+    @Getter
+    //@Size(min = 8, max = 30, message = "A senha deve ter entre 8 e 10 caracteres.")
     private String senha;
 
-    public @Size(min = 8, max = 10, message = "A senha deve ter entre 8 e 10 caracteres.") String getSenha() {
+    public String getSenha() {
         return senha;
     }
 
+    @Setter
+    @Getter
+    @CreationTimestamp
     private LocalDateTime dataCadastro;
+
+    @Setter
+    @Getter
     private Status status;
 
+    @Setter
+    @Getter
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "mentoria_id", referencedColumnName = "id")
     private Mentoria mentoria;
 
+    @Setter
+    @Getter
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Feedback> feedbacks;
 
+    @Setter
+    @Getter
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "usuarios_roles",
             joinColumns = @JoinColumn(name = "usuario_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-
-    public Usuario(String nome, String cpf, String email, Status status, LocalDateTime dataCadastro) {
+    public Usuario(String nome, String cpf, String email, String senha) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
-        this.status = status;
-        this.dataCadastro = dataCadastro;
+        this.senha = senha;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public LocalDateTime getDataCadastro() {
-        return dataCadastro;
-    }
-
-    public void setDataCadastro(LocalDateTime dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
 
     public void setSenha(@Size(min = 8, max = 10, message = "A senha deve ter entre 8 e 10 caracteres.") String senha) {
         this.senha = senha;
     }
 
-    public Mentoria getMentoria() { return mentoria;}
-
-    public void setMentoria(Mentoria mentoria) { this.mentoria = mentoria;}
-
-    public List<Feedback> getFeedbacks() { return feedbacks;}
-
-    public void setFeedbacks(List<Feedback> feedbacks) { this.feedbacks = feedbacks;}
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 
     @Override
     public String toString() {

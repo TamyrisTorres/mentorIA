@@ -34,7 +34,7 @@ public class SecurityConfig {
                 //TODO -> Habilitar o csrf;
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                .requestMatchers("/login", "/register", "/css/**", "/js/**").permitAll() // URLs públicas
+                .requestMatchers("/registerUser", "/register", "/css/**", "/js/**").permitAll() // URLs públicas
                 .anyRequest().authenticated()) // Exige autenticação para qualquer outra URL
                 .formLogin(form -> form
                         .loginPage("/login")

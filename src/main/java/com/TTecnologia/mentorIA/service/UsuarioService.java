@@ -16,6 +16,7 @@ package com.TTecnologia.mentorIA.service;
 import com.TTecnologia.mentorIA.dao.UsuarioDao;
 import com.TTecnologia.mentorIA.model.entity.Role;
 import com.TTecnologia.mentorIA.model.entity.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
+    @Autowired
     private UsuarioDao usuarioDao;
 
     public Usuario addUsuario(Usuario usuario) {
