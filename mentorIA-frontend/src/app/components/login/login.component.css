@@ -1,0 +1,91 @@
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.imageBackgroundMain{
+  background-size: cover; 
+  width: 120vw; 
+  height: 120vh; 
+  overflow: hidden;
+  opacity: 0.9;
+}
+
+.formLogin{
+  background-color: #0B1A40;
+  width: 450px;
+  padding: 6px;
+  height: 680px;
+  z-index: 9999;
+  position: relative;
+  bottom: 53vw;
+  left: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border-radius: 50px;
+}
+
+.sentence{
+  font-size: 28px;
+  color: white;
+  margin-top: 100px;
+  padding-left: 70px;
+  padding-right: 65px;
+  
+}
+
+.titleLogin{
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 18px;
+}
+
+.fLogin{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 210px;
+}
+
+.emailAdress,
+.passwordLogin{
+  height: 30px;
+  border-radius: 150px;
+}
+
+input#emailLogin,
+input#fPassword {
+  border-radius: 8px;
+  height: 110px;
+  width: 300px;
+}
+
+.submitLogin{
+  width: 150px;
+  height: 110px;
+  color: white;
+  background-color:#471b55 ;
+  border-style: unset;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  font-weight: 400;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 16px;
+}
+
+.submitLogin:hover{
+  background-color: #563a61;
+  cursor: pointer;
+}
+
+input[type=text], select {
+  padding-left: 17px;
+  font-weight: bold;
+}
