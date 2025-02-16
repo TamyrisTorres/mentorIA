@@ -1,26 +1,14 @@
-<div>
-  <img class="imageBackgroundMain" srcset="backgroundFeatu.png">
-</div>
-<section class="pageLogo">
-  <div class="formLogin">
-    <h1 class="sentence">Bem vindo de volta explorador, vamos continuar com a aventura!</h1>
-      <h2 class="titleLogin">Login into your account</h2>
-      <form class="fLogin" action="post">
-          <label class="emailAdress" for="emailLogin"></label>
-          <input type="text" id="emailLogin" name="emailAdress" placeholder="Email">
+<app-default-page-logo
+  title = "Bem vindo de volta explorador, vamos continuar com a aventura!"
+  titleL = "Login into your account"
+  (goToRegister)="goToRegister()">
+  
 
-          <label class="passwordLogin" for="fPassword"></label>
-          <input type="text" id="fPassword" name="passwordLogin" placeholder="Password">
-        </form>
-        <div>
-          <button class="submitLogin">Submit</button>
-          <hr class="separator">
-          <button class="submitLogin">Create account</button>
-        </div>  
+  <form [formGroup]="loginForm">
+    <app-input>
       
-  </div>
-  <div class="right">
-    <h1 class="logoMentor">Mentor<span class="ia">IA</span></h1>
-    
-</div>
-</section>
+    </app-input>
+  </form>
+</app-default-page-logo>
+
+

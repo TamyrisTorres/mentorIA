@@ -1,0 +1,62 @@
+.pageLogo{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 190px;
+  height: 98vh;
+  align-items: center;
+  position: relative;
+  z-index: 9999;
+}
+
+.imageBackgroundMain{
+  background-size: cover;
+  width: 130vw;
+  z-index: -1;
+  overflow: hidden;
+  border-radius: 20px;
+  position: fixed;
+}
+
+.formRegister{
+  background-color: #0B1A40;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border-radius: 50px;
+  width: 430px;
+  height: 40vw;
+}
+
+.fRegister{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 170px;
+}
+
+.sentence{
+  font-size: 28px;
+  color: rgb(214, 224, 230);
+  padding-top: 10px;
+  margin: 45px;
+}
+
+.right{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+.logoMentor{
+  font-size: 120px;
+  font-family: 'Saira', sans-serif;
+  color: #111213;
+}
+
+.ia{
+  font-weight: 900;
+}

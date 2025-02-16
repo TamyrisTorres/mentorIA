@@ -1,0 +1,28 @@
+<main>
+  <div>
+    <img class="imageBackgroundMain" srcset="backgroundFeatu.png">
+  </div>
+  <section class="pageLogo">
+    <div class="formLogin">
+      <h1 class="sentence">{{title}}</h1>
+      <h2 class="titleLogin">{{ titleL }}</h2>
+      <ng-content></ng-content>
+      <form class="fLogin" action="post">
+        <label class="emailAdress" for="emailLogin"></label>
+        <input type="text" id="emailLogin" name="emailAdress" placeholder="Email">
+
+        <label class="passwordLogin" for="fPassword"></label>
+        <input type="text" id="fPassword" name="passwordLogin" placeholder="Password">
+      </form>
+      <div>
+        <button class="submitLogin">Submit</button>
+        <hr class="separator">
+        <button (click)="Register()" class="submitLogin">Create account</button>
+      </div>
+
+    </div>
+    <div class="right">
+      <h1 class="logoMentor">Mentor<span class="ia">IA</span></h1>
+    </div>
+  </section>
+</main>
