@@ -7,17 +7,10 @@
       <h1 class="sentence">{{title}}</h1>
       <h2 class="titleLogin">{{ titleL }}</h2>
       <ng-content></ng-content>
-      <form class="fLogin" action="post">
-        <label class="emailAdress" for="emailLogin"></label>
-        <input type="text" id="emailLogin" name="emailAdress" placeholder="Email">
-
-        <label class="passwordLogin" for="fPassword"></label>
-        <input type="text" id="fPassword" name="passwordLogin" placeholder="Password">
-      </form>
       <div>
-        <button class="submitLogin">Submit</button>
+        <button (click)="submit()" class="submitLogin">{{ primaryBtnText }}</button>
         <hr class="separator">
-        <button (click)="Register()" class="submitLogin">Create account</button>
+        <button (click)="register()" class="registeLogin">Create account</button>
       </div>
 
     </div>

@@ -1,12 +1,26 @@
 <app-default-page-logo
   title = "Bem vindo de volta explorador, vamos continuar com a aventura!"
   titleL = "Login into your account"
-  (goToRegister)="goToRegister()">
+  primaryBtnText = "Login"
+  [loginForm]="loginForm"
+  (goToRegister)="goToRegister()"
+  (onSubmit)="onSubmit()"
+  >
+  
   
 
   <form [formGroup]="loginForm">
-    <app-input>
-      
+    <app-input
+      formName="email"
+      type="email"
+      label="Email"
+      placeHolder="spockai@email.com">
+    </app-input>
+    <app-input
+      formName="password"
+      type="password"
+      label="Your password"
+      >
     </app-input>
   </form>
 </app-default-page-logo>

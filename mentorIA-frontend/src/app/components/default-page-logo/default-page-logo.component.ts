@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-default-page-logo',
@@ -10,11 +11,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class DefaultPageLogoComponent {
   @Input() title: string = "";
   @Input() titleL: string = "";
-
-
+  @Input() primaryBtnText: string = "";
+  @Input() loginForm!: FormGroup;
+  @Input() formName!: string;
+  @Output() onSubmit = new EventEmitter<void>();
   @Output() goToRegister = new EventEmitter();
 
-  Register(){
+  register(){
     this.goToRegister.emit()
+  }
+
+  submit(){
+    this.onSubmit.emit();
   }
 }
