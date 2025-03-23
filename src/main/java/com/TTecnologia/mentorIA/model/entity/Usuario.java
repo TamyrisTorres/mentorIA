@@ -46,11 +46,6 @@ public class Usuario {
 
     @Setter
     @Getter
-    @Pattern(regexp = "\\d{11}", message = "O CPF deve ter exatamente 11 dígitos.")
-    private String cpf;
-
-    @Setter
-    @Getter
     @Email
     @Column(unique = true)
     private String email;
@@ -92,9 +87,11 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public Usuario(String nome, String cpf, String email, String senha) {
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String email, String senha) {
         this.nome = nome;
-        this.cpf = cpf;
         this.email = email;
         this.senha = senha;
     }
@@ -107,6 +104,6 @@ public class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nome='" + nome + '\'' + ", cpf='" + cpf + '\'' + ", email='" + email + '\'' + ", dataCadastro=" + dataCadastro + ", status=" + status + '}';
+        return "Usuario{" + "id=" + id + ", nome='" + nome + '\'' + ", email='" + email + '\'' + ", dataCadastro=" + dataCadastro + ", status=" + status + '}';
     }
 }

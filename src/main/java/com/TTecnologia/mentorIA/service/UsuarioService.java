@@ -48,7 +48,6 @@ public class UsuarioService {
         Usuario usuarioOld = usuarioOptional.get();
 
         usuarioOld.setNome(newUsuario.getNome());
-        usuarioOld.setCpf(newUsuario.getCpf());
         usuarioOld.setEmail(newUsuario.getEmail());
         usuarioOld.setStatus(newUsuario.getStatus());
         usuarioOld.setDataCadastro(newUsuario.getDataCadastro());

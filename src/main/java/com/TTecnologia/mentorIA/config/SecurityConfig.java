@@ -15,6 +15,7 @@ package com.TTecnologia.mentorIA.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -32,17 +33,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 //TODO -> Habilitar o csrf;
+                .cors(cors -> cors.configure(http))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authz) -> authz
-                .requestMatchers("/registerUser", "/register", "/css/**", "/js/**").permitAll() // URLs públicas
-                .anyRequest().authenticated()) // Exige autenticação para qualquer outra URL
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/home", true)
-                        .permitAll())
-                .logout(logout -> logout
-                .logoutSuccessUrl("/login?logout")
-                .permitAll());
+                .requestMatchers( HttpMethod.POST,"auth/register", "/css/**", "/js/**").permitAll()
+                .requestMatchers(HttpMethod.POST,"auth/login", "/css/**", "/js/**").permitAll() // URLs públicas
+                .anyRequest().authenticated());
 
         return http.build();
     }

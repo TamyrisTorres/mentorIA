@@ -13,14 +13,62 @@
 
 package com.TTecnologia.mentorIA.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.TTecnologia.mentorIA.dto.RegisterRequestDTO;
+import com.TTecnologia.mentorIA.dto.ResponseDTO;
+import com.TTecnologia.mentorIA.model.entity.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import com.TTecnologia.mentorIA.dao.UsuarioDao;
+import com.TTecnologia.mentorIA.dto.LoginRequestDTO;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/auth")
 public class LoginController {
 
-    @GetMapping("/login")
-    public String login() {
-        return "login"; // Nome do arquivo HTML (login.html)
+    @Autowired
+    private UsuarioDao usuarioDao;
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+    @PostMapping("/login")
+    public ResponseEntity login(@RequestBody LoginRequestDTO body){
+        Usuario usuario = this.usuarioDao.findByEmail(body.email())
+                .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+
+        if (passwordEncoder.matches(body.password(), usuario.getSenha())){
+            //String token = passwordEncoder.encode(usuario.getSenha());
+            return ResponseEntity.ok(new ResponseDTO(usuario.getNome()));
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
+
+    @PostMapping("/register")
+    public ResponseEntity register(@RequestBody RegisterRequestDTO body){
+
+        Optional<Usuario> usuario = this.usuarioDao.findByEmail(body.email());
+
+        if (usuario.isEmpty()){
+            Usuario newUsuario = new Usuario();
+            newUsuario.setNome(body.nome());
+            newUsuario.setEmail(body.email());
+            newUsuario.setSenha(passwordEncoder.encode(body.password()));
+
+            this.usuarioDao.save(newUsuario);
+
+            String token = newUsuario.getSenha();
+            return ResponseEntity.ok(new ResponseDTO(newUsuario.getNome()));
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 }

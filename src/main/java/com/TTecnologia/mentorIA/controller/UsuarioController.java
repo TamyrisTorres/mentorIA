@@ -35,9 +35,10 @@ public class UsuarioController {
         return usuarioService.addUsuario(usuario);
     }
 
+
     @GetMapping
-    public List<Usuario> getAllUsuario() {
-        return usuarioService.getAllUsuario();
+    public ResponseEntity<String> getUser(){
+        return ResponseEntity.ok("Sucesso");
     }
 
     @GetMapping("/{id}")
