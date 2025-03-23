@@ -12,13 +12,13 @@ export class DefaultPageLogoComponent {
   @Input() title: string = "";
   @Input() titleL: string = "";
   @Input() primaryBtnText: string = "";
-  @Input() loginForm!: FormGroup;
-  @Input() formName!: string;
-  @Output() onSubmit = new EventEmitter<void>();
-  @Output() goToRegister = new EventEmitter();
+  @Input() secondBtnText: string = "";
+  @Input() disabledPrimaryBtn: boolean = true;
+  @Output("submit") onSubmit = new EventEmitter();
+  @Output("navigate") onNavigate = new EventEmitter();
 
-  register(){
-    this.goToRegister.emit()
+  navigate(){
+    this.onNavigate.emit()
   }
 
   submit(){

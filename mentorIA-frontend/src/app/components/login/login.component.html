@@ -2,26 +2,28 @@
   title = "Bem vindo de volta explorador, vamos continuar com a aventura!"
   titleL = "Login into your account"
   primaryBtnText = "Login"
-  [loginForm]="loginForm"
-  (goToRegister)="goToRegister()"
-  (onSubmit)="onSubmit()"
+  secondBtnText = "Create account"
+  (navigate)="navigate()"
+  (submit)="submit()"
+  [disabledPrimaryBtn] = "!loginForm.valid"
   >
   
-  
-
   <form [formGroup]="loginForm">
     <app-input
-      formName="email"
+      formControlName="email"
+      inputName="email"
       type="email"
       label="Email"
       placeHolder="spockai@email.com">
     </app-input>
     <app-input
-      formName="password"
+      formControlName="password"
+      inputName="password"
       type="password"
       label="Your password"
       >
     </app-input>
+    <span>Forgot password?</span>
   </form>
 </app-default-page-logo>
 

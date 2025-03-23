@@ -1,10 +1,11 @@
 <div class="input-wrapper">
-    <label [for]="formName">{{label}}</label>
+    <label [for]="inputName">{{label}}</label>
     <div class="input-content">
         <input 
-            [attr.type]="type" 
-            [attr.formControlName]="formName"
-            [attr.placeholder]="placeHolder"
+            [type]="type" 
+            [placeholder]="placeHolder"
+            [value]="value"
+            (input)="onInput($event)"
         />
     </div>
 </div>

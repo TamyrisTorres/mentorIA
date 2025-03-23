@@ -41,7 +41,11 @@
   font-size: 28px;
   color: rgb(214, 224, 230);
   padding-top: 10px;
-  margin: 45px;
+  margin: 1rem 2.5rem;
+}
+
+.titleLogin{
+  margin-top: 0px!important;
 }
 
 .right{

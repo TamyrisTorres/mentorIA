@@ -8,9 +8,9 @@
       <h2 class="titleLogin">{{ titleL }}</h2>
       <ng-content></ng-content>
       <div>
-        <button (click)="submit()" class="submitLogin">{{ primaryBtnText }}</button>
+        <button (click)="submit()" [disabled]="disabledPrimaryBtn" class="submitLogin">{{ primaryBtnText }}</button>
         <hr class="separator">
-        <button (click)="register()" class="registeLogin">Create account</button>
+        <button (click)="navigate()" class="registeLogin">{{secondBtnText}}</button>
       </div>
 
     </div>

@@ -125,3 +125,12 @@ input[type=text], select {
 .ia{
   font-weight: 900;
 }
+
+span{
+  font-size: 14px;
+  text-decoration: underline;
+  color: aliceblue;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
