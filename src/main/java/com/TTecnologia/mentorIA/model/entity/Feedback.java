@@ -16,6 +16,8 @@ package com.TTecnologia.mentorIA.model.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "feedback")
 public class Feedback {
@@ -28,9 +30,9 @@ public class Feedback {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    private String relatorioMentoria;
+    private List<String> relatorioMentoria;
 
-    public Feedback(Usuario usuario, String relatorioMentoria) {
+    public Feedback(Usuario usuario, List<String> relatorioMentoria) {
         this.usuario = usuario;
         this.relatorioMentoria = relatorioMentoria;
     }
@@ -51,11 +53,11 @@ public class Feedback {
         this.usuario = usuario;
     }
 
-    public String getRelatorioMentoria() {
+    public List<String> getRelatorioMentoria() {
         return relatorioMentoria;
     }
 
-    public void setRelatorioMentoria(String relatorioMentoria) {
+    public void setRelatorioMentoria(List<String> relatorioMentoria) {
         this.relatorioMentoria = relatorioMentoria;
     }
 

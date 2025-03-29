@@ -31,3 +31,55 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+# Dependências do Node.js
+/node_modules
+
+# Build do Angular
+/dist
+/.angular/cache
+
+# Configurações locais
+/.env
+/.vscode
+
+# Arquivos de IDE
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs e relatórios
+/logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de configuração local
+/src/environments/environment.ts
+/src/environments/environment.prod.ts
+
+# Arquivos temporários
+*.tmp
+*.bak
+
+# Arquivos de cobertura de testes
+/coverage
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos do npm e yarn
+package-lock.json
+yarn.lock
+
+# Arquivos do editor
+*.log
+*.spec.ts
+
+# Arquivo application.properties
+src/main/resources/application.properties

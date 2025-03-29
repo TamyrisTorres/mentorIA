@@ -50,25 +50,4 @@ public class LoginController {
 
         return ResponseEntity.badRequest().build();
     }
-
-
-    @PostMapping("/register")
-    public ResponseEntity register(@RequestBody RegisterRequestDTO body){
-
-        Optional<Usuario> usuario = this.usuarioDao.findByEmail(body.email());
-
-        if (usuario.isEmpty()){
-            Usuario newUsuario = new Usuario();
-            newUsuario.setNome(body.nome());
-            newUsuario.setEmail(body.email());
-            newUsuario.setSenha(passwordEncoder.encode(body.password()));
-
-            this.usuarioDao.save(newUsuario);
-
-            String token = newUsuario.getSenha();
-            return ResponseEntity.ok(new ResponseDTO(newUsuario.getNome()));
-        }
-
-        return ResponseEntity.badRequest().build();
-    }
 }

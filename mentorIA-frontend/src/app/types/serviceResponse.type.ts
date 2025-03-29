@@ -3,3 +3,7 @@ export type ServiceResponse = {
     email: string,
     nome: string
 }
+
+export type IAResponse = {
+    question: string
+  }

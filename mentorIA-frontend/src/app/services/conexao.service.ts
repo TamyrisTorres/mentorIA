@@ -9,13 +9,13 @@ import { tap } from 'rxjs';
 export class ConexaoService {
 
   completUrl: string;
-  apiUrl: string = "http://localhost:3006/auth/";
+  apiUrl: string = "http://localhost:3006/";
 
   constructor(private httpClient: HttpClient) {}
-  
+
   login(email: String, password: String){
-    this.completUrl = this.apiUrl + "login";
-    
+    this.completUrl = this.apiUrl + "auth/login";
+
     return this.httpClient.post<ServiceResponse>(this.completUrl,
        {email, password}).pipe(
       tap((valeu) => {
@@ -27,8 +27,8 @@ export class ConexaoService {
 
 
   register(nome: String, email: String, password: String){
-    this.completUrl = this.apiUrl + "register";
-   
+    this.completUrl = this.apiUrl + "createUser/register";
+
     return this.httpClient.post<ServiceResponse>(this.completUrl,
        {nome, email, password}).pipe(
         tap((valeu) => {
@@ -38,4 +38,15 @@ export class ConexaoService {
         })
        )
   }
+
+    sendQuestionIa(question: string){
+      this.completUrl = this.apiUrl + "/chat";
+
+      return this.httpClient.post<IAResponse>(
+        this.completUrl, {question}).pipe(
+          tap((valeu) => {
+            sessionStorage.setItem("question", valeu.question)
+            })
+          )
+    }
 }

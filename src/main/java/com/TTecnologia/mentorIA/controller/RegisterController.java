@@ -13,33 +13,46 @@
 
 package com.TTecnologia.mentorIA.controller;
 
+import com.TTecnologia.mentorIA.dao.UsuarioDao;
+import com.TTecnologia.mentorIA.dto.RegisterRequestDTO;
+import com.TTecnologia.mentorIA.dto.ResponseDTO;
 import com.TTecnologia.mentorIA.model.entity.Usuario;
 import com.TTecnologia.mentorIA.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/createUser")
 public class RegisterController {
 
     @Autowired
     private UsuarioService usuarioService;
+    private UsuarioDao usuarioDao;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 
-    @PostMapping("/registerUser")
-    public ResponseEntity<?> registerUser(@RequestBody Usuario usuario) {
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
-        usuarioService.addUsuario(usuario);
+    @PostMapping("/register")
+    public ResponseEntity register(@RequestBody RegisterRequestDTO body){
 
-        return ResponseEntity.ok("User registered successfully!");
-    }
+        Optional<Usuario> usuario = this.usuarioDao.findByEmail(body.email());
 
-    @GetMapping("/register")
-    public String register() {
-        return "register"; // Nome do arquivo HTML (register.html)
+        if (usuario.isEmpty()){
+            Usuario newUsuario = new Usuario();
+            newUsuario.setNome(body.nome());
+            newUsuario.setEmail(body.email());
+            newUsuario.setSenha(passwordEncoder.encode(body.password()));
+
+            this.usuarioDao.save(newUsuario);
+
+            String token = newUsuario.getSenha();
+            return ResponseEntity.ok(new ResponseDTO(newUsuario.getNome()));
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 }
