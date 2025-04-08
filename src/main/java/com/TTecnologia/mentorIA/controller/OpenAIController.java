@@ -13,39 +13,36 @@
 
 package com.TTecnologia.mentorIA.controller;
 
-import com.TTecnologia.mentorIA.model.entity.Feedback;
-import com.TTecnologia.mentorIA.model.entity.Usuario;
-import com.TTecnologia.mentorIA.service.OpenAiService;
+import com.TTecnologia.mentorIA.service.IaService.OpenAiService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/chat")
+@CrossOrigin(origins = "http://localhost:4200/chat")
 public class OpenAIController {
 
     private final OpenAiService openAiService;
-    private FeedbackController feedbackController;
 
     public OpenAIController(OpenAiService openAiService) {
         this.openAiService = openAiService;
     }
 
-    @GetMapping
-    public ResponseEntity<String> chat(@RequestParam Usuario usuario, String pergunta) {
-        String response = openAiService.chat(pergunta);
+    @PostMapping("/send")
+    public ResponseEntity<String> chat(@RequestBody Map<String, String> body) {
+        String question = body.get("question");
 
-        if(!response.isEmpty()){
-            feedbackController.addFeedback(
-                    new Feedback(
-                            usuario, Collections.singletonList(pergunta)));
+
+        try {
+            String response = openAiService.chat(question);
             return ResponseEntity.ok(response);
-        }
 
-        return ResponseEntity.badRequest().build();
+        } catch (Exception e) {
+            String errorMessage = e.getMessage();
+            return ResponseEntity.badRequest().build();
+
+        }
     }
 }

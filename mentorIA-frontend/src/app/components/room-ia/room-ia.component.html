@@ -1,24 +1,33 @@
+<div>
+  <img class="imageBackgroundMain" srcset="ceuEstrelado.png">
+</div>
+<main class="container">
 
-<h2>Vou te ajudar a decobrir o universo sobre a profissão que você deseja!</h2>
+<section class="messagePage">
+<h1>Vida longa e prospera explorador 🖖</h1>
+<h2>Vou te ajudar a explorar sobre a profissão dos seus sonhos!</h2>
 
-
-<p>Sei o quanto essa fase é difícil, e por isso estou aqui para te ajudar
-a entender sobre a profissão que você tem interesse. </p>
-<p>Então vamos descobrir tudo juntos -
-  Como se preparar? O que é necessário para exercer?<br>
-  Como está o mercado de trabalho? As prospeções para o futuro.<br>
-  Qual a média salário? Quais as reais dificuldades apresentadas
-  por profissionais que já atuam?
+<p>Meu objetivo é te ajudar a compreender
+   melhor a profissão que tem interesse.
 </p>
+<h2>Está pronto para começar?</h2>
 
-<p>Estou aqui para te apresentar um relatório e reunir as experiências
-   dos seus futuros colegas de profissão,
-  mas lembre<br> <strong>a Decisão é sua, qual o caminho a percorrer!</strong> </p>
 
-<h3>Está preparado?</h3>
+</section>
+<div style="display: none;" class="responseIa">
+  <p class="responseMessage">{{ responseMessage }}</p>
+</div>
 
-<h4>Live long and prosper &#128406;</h4>
+<div class="input-question">
+  <label for="inputQuestion">Qual a profissão que deseja conhecer?</label>
+  <div class="input-content">
+    <input
+      id="inputQuestion"
+      type="text"
+      [(ngModel)]="question"
 
-<form [formGroup]="questionForIa">
-
-</form>
+    />
+    <button (click)="sendQuestion()" class="sendQuestion">Enviar</button>
+  </div>
+</div>
+</main>

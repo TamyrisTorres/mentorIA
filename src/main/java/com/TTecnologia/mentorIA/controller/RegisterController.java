@@ -17,6 +17,7 @@ import com.TTecnologia.mentorIA.dao.UsuarioDao;
 import com.TTecnologia.mentorIA.dto.RegisterRequestDTO;
 import com.TTecnologia.mentorIA.dto.ResponseDTO;
 import com.TTecnologia.mentorIA.model.entity.Usuario;
+import com.TTecnologia.mentorIA.service.Security.JwtService;
 import com.TTecnologia.mentorIA.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,9 +33,13 @@ public class RegisterController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
     private UsuarioDao usuarioDao;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    @Autowired
+    private JwtService jwtService;
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody RegisterRequestDTO body){
@@ -48,9 +53,9 @@ public class RegisterController {
             newUsuario.setSenha(passwordEncoder.encode(body.password()));
 
             this.usuarioDao.save(newUsuario);
+            String token = this.jwtService.generateToken(newUsuario);
 
-            String token = newUsuario.getSenha();
-            return ResponseEntity.ok(new ResponseDTO(newUsuario.getNome()));
+            return ResponseEntity.ok(new ResponseDTO(newUsuario.getNome(), token));
         }
 
         return ResponseEntity.badRequest().build();

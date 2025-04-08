@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ServiceResponse } from '../types/serviceResponse.type';
 import { tap } from 'rxjs';
+import { IAResponse } from '../types/iaResponse.type';
 
 @Injectable({
   providedIn: 'root'
@@ -39,14 +40,24 @@ export class ConexaoService {
        )
   }
 
-    sendQuestionIa(question: string){
-      this.completUrl = this.apiUrl + "/chat";
-
-      return this.httpClient.post<IAResponse>(
-        this.completUrl, {question}).pipe(
-          tap((valeu) => {
-            sessionStorage.setItem("question", valeu.question)
-            })
-          )
-    }
+  sendQuestionIa(question: string) {
+    this.completUrl = this.apiUrl + "api/ia/ask";
+  
+    const token = sessionStorage.getItem("auth-token");
+  
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  
+    return this.httpClient.post<IAResponse>(
+      this.completUrl,
+      { question },
+      { headers }
+    ).pipe(
+      tap((valeu) => {
+        sessionStorage.setItem("question", valeu.question);
+      })
+    );
+  }
+  
 }

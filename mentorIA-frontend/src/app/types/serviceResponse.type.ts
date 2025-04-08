@@ -4,6 +4,4 @@ export type ServiceResponse = {
     nome: string
 }
 
-export type IAResponse = {
-    question: string
-  }
+

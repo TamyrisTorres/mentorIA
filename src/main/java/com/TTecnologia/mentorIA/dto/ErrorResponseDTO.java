@@ -13,5 +13,5 @@
 
 package com.TTecnologia.mentorIA.dto;
 
-public record ResponseDTO(String nome, String token) {
+public record ErrorResponseDTO(String message) {
 }

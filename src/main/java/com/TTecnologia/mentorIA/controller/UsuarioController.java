@@ -45,11 +45,7 @@ public class UsuarioController {
     public ResponseEntity<Usuario> getUsuario(@PathVariable Integer id) {
         Optional<Usuario> usuario = usuarioService.getUsuario(id);
 
-        if (usuario.isPresent()) {
-            return ResponseEntity.ok(usuario.get());
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("usuario/{id}")

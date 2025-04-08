@@ -74,18 +74,6 @@ public class Usuario {
     @JoinColumn(name = "mentoria_id", referencedColumnName = "id")
     private Mentoria mentoria;
 
-    @Setter
-    @Getter
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Feedback> feedbacks;
-
-    @Setter
-    @Getter
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "usuarios_roles",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
 
     public Usuario() {
     }

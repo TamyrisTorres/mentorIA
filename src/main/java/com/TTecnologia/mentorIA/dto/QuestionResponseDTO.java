@@ -11,12 +11,7 @@
  * civil and criminal sanctions. For inquiries or requests, please contact: wedellatorres@gmail.com.
  */
 
-package com.TTecnologia.mentorIA.dao;
+package com.TTecnologia.mentorIA.dto;
 
-import com.TTecnologia.mentorIA.model.entity.Feedback;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
-@Repository
-public interface FeedbackDao extends JpaRepository<Feedback, Integer> {
+public record QuestionResponseDTO(String answer) {
 }

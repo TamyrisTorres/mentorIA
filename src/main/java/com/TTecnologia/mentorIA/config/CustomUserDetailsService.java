@@ -11,51 +11,29 @@
  * civil and criminal sanctions. For inquiries or requests, please contact: wedellatorres@gmail.com.
  */
 
-package com.TTecnologia.mentorIA.service;
+package com.TTecnologia.mentorIA.config;
 
 import com.TTecnologia.mentorIA.dao.UsuarioDao;
 import com.TTecnologia.mentorIA.model.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.ArrayList;
 
-@Service
-public class UsuarioService {
-
+@Component
+public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UsuarioDao usuarioDao;
 
-    public Usuario addUsuario(Usuario usuario) {
-        return usuarioDao.save(usuario);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Usuario usuario = this.usuarioDao.findByEmail(username).orElseThrow(() ->
+                new UsernameNotFoundException("User not found"));
+
+        return new org.springframework.security.core.userdetails.User(
+                usuario.getEmail(), usuario.getSenha(), new ArrayList<>());
     }
-
-    public Optional<Usuario> getUsuario(Integer id) {
-        return usuarioDao.findById(id);
-    }
-
-    public List<Usuario> getAllUsuario() {
-        return usuarioDao.findAll();
-    }
-
-    public Usuario updateUsuario(Integer id, Usuario newUsuario) {
-        Optional<Usuario> usuarioOptional = getUsuario(id);
-
-        Usuario usuarioOld = usuarioOptional.get();
-
-        usuarioOld.setNome(newUsuario.getNome());
-        usuarioOld.setEmail(newUsuario.getEmail());
-        usuarioOld.setStatus(newUsuario.getStatus());
-        usuarioOld.setDataCadastro(newUsuario.getDataCadastro());
-
-        return usuarioDao.save(usuarioOld);
-    }
-
-    public void deleteUsuario(Integer id) {
-        usuarioDao.deleteById(id);
-    }
-
 }

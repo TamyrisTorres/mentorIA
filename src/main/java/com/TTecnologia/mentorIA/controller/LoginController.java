@@ -13,9 +13,11 @@
 
 package com.TTecnologia.mentorIA.controller;
 
-import com.TTecnologia.mentorIA.dto.RegisterRequestDTO;
+import com.TTecnologia.mentorIA.config.JwtAuthFilter;
+import com.TTecnologia.mentorIA.config.SecurityConfig;
 import com.TTecnologia.mentorIA.dto.ResponseDTO;
 import com.TTecnologia.mentorIA.model.entity.Usuario;
+import com.TTecnologia.mentorIA.service.Security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,8 +30,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.TTecnologia.mentorIA.dao.UsuarioDao;
 import com.TTecnologia.mentorIA.dto.LoginRequestDTO;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/auth")
 public class LoginController {
@@ -37,6 +37,8 @@ public class LoginController {
     @Autowired
     private UsuarioDao usuarioDao;
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private JwtService jwtService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequestDTO body){
@@ -44,8 +46,10 @@ public class LoginController {
                 .orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
 
         if (passwordEncoder.matches(body.password(), usuario.getSenha())){
-            //String token = passwordEncoder.encode(usuario.getSenha());
-            return ResponseEntity.ok(new ResponseDTO(usuario.getNome()));
+
+            String token = this.jwtService.generateToken(usuario);
+
+            return ResponseEntity.ok(new ResponseDTO(usuario.getNome(), token));
         }
 
         return ResponseEntity.badRequest().build();
